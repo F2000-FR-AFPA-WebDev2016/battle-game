@@ -8,10 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
  * Game
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Afpa\BattleGameBundle\Entity\GameRepository")
+ * @ORM\Entity()
  */
-class Game
-{
+class Game {
+
     /**
      * @var integer
      *
@@ -35,14 +35,12 @@ class Game
      */
     private $name;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -52,20 +50,18 @@ class Game
      * @param \DateTime $createdDate
      * @return Game
      */
-    public function setCreatedDate($createdDate)
-    {
+    public function setCreatedDate($createdDate) {
         $this->createdDate = $createdDate;
-    
+
         return $this;
     }
 
     /**
      * Get createdDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getCreatedDate()
-    {
+    public function getCreatedDate() {
         return $this->createdDate;
     }
 
@@ -75,20 +71,19 @@ class Game
      * @param string $name
      * @return Game
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
+
 }
