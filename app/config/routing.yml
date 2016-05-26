@@ -1,0 +1,4 @@
+afpa_battle_game:
+    resource: "@AfpaBattleGameBundle/Controller/"
+    type:     annotation
+    prefix:   /
