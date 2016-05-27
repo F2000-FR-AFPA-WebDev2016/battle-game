@@ -2,34 +2,42 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Bataille NAPOLEONIENNE!{% endblock %}</title>
         {% block stylesheets %}
         {% endblock %}
-        <style>
+        <link rel="stylesheet" type="text/css" href="{{ asset("bundles/afpaBattleGame/css/styles.css") }}"/>
 
-        </style>
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+
+
+
+
+
+
     </head>
     <body>
         <header>
-            <img src="{{ asset("bundles/afpaBattleGame/images/") }}" />
+
+
+            <img src="{{ asset("bundles/afpaBattleGame/images/grognard.jpg") }}" />
+            <!-- On utilise la nouvelle balise HTML5 "nav" pour indiquer un élement de navigation dans notre site -->
             <div>
-                <input type="submit" value="Se déconnecter" />
+                <input class = "connect" type="submit" value="Se Connecter" />
             </div>
 
-        <!-- On utilise la nouvelle balise HTML5 "nav" pour indiquer un élement de navigation dans notre site -->
             <nav>
                 <ul>
                     <li><a href="index.php">Accueil</a></li>
                     <li>Game room</li>       
+                    <li><a href="gameroom.php">Game room</a></li>
                 </ul>
             </nav>
         </header>
-                
-            <img class = "image" src="{{asset("Bundles/afpaBattleGameBundleimages/grognard.jpg")}}  "/>
-        {% block body %}           
+
+
+        {% block body %}
         {% endblock %}
-        
+
         <footer>
             <nav>
                 <ul>
@@ -40,7 +48,7 @@
                 </ul>
             </nav>
         </footer>
-        
-        {% block javascripts %}{% endblock %}
-    </body>
+
+    {% block javascripts %}{% endblock %}
+</body>
 </html>
