@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+        {% endblock %}
+        <style>
+
+        </style>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <header>
+            <h1>Bienvenue sur le site Au Bon Coin</h1>
+            <img class = "image" src="{{asset("Bundles/afpaBattleGameBundleimages/grognard.jpg")}}  "/>
+        </header>
+        {% block body %}
+
+        {% endblock %}
+    {% block javascripts %}{% endblock %}
+</body>
+</html>
