@@ -1,33 +1,51 @@
 
 .connect{
-    padding:20px;
     width: 200px;
+    height: 50px;
+    position: absolute ;
+    right: 8px;
+    top: 8px;
+}
+.bat{
+    font-size: 50px;
+    display: inline-block;
+    font-family: "Brush Script MT", Times, serif;
 }
 .logo{
     height: 100px;
+    display: inline-block;
+    position: absolute ;
+    left: 8px;
+    top: 8px;
 }
 
 header {
     background: none repeat scroll 0 0 #44AC9E;
+    height: 100px;
+    text-align: center;
 }
 
 footer {
     background: none repeat scroll 0 0 #44AC9E;
 }
-header ul {
-    margin: 20px 0px;
-}
-header nav li {
-    border-left: 1px solid #999;
-    font-size:40px;
-}
-nav li {
-    list-style-type: none;
-    display:inline-block;
-    padding:0px 10px;
-}
 
 header nav li {
-    border-left: 1px solid #999;
-    font-size:14px;
+    margin:0 auto; width: 400px;
+    text-align: center;
+}
+footer nav li{
+    margin:0 auto; width: 300px;
+    text-align: center;
+}
+
+nav li {
+    list-style-type: none;
+    display: inline-block;
+    padding:0px 10px;
+    font-size:25px;
+    color:black;
+    display:inline-block;
+
+
+
 }
