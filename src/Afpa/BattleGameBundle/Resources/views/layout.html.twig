@@ -9,27 +9,23 @@
     </head>
     <body>
         <header>
-            <img src="{{ asset("bundles/afpaBattleGame/images/grognard.jpg") }}" />
-            <!-- On utilise la nouvelle balise HTML5 "nav" pour indiquer un élement de navigation dans notre site -->
-            <div>
-                <input class = "connect" type="submit" value="Se Connecter" />
-            </div>
-            
-            
+            <img class ="logo" src="{{ asset("bundles/afpaBattleGame/images/grognard.jpg") }}" />
+            <div class= "bat">Bataille NAPOLEONNIENE</div>
+
+            <!-- On utilise la nouvelle balise HTML5 "nav" pour indiquer un élement de navigation dans notre site -->           
+
+            <input class = "connect" type="submit" value="Se Connecter" />
 
             <nav>
                 <ul>
                     <li><a href="index.php">Accueil</a></li>
-                    <li>Game room</li>       
                     <li><a href="gameroom.php">Game room</a></li>
                 </ul>
             </nav>
         </header>
 
 
-        {% block body %}
-        {% endblock %}
-
+    {% block body %}{% endblock %}
         <footer>
             <nav>
                 <ul>
@@ -41,6 +37,7 @@
             </nav>
         </footer>
 
-    {% block javascripts %}{% endblock %}
-</body>
+
+{% block javascripts %}{% endblock %}
+    </body>
 </html>
