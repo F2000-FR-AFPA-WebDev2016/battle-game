@@ -1,0 +1,49 @@
+{% extends "AfpaBattleGameBundle::layout.html.twig" %}
+
+{% block body %}
+    <style>
+        table {text-align: center;border-collapse: collapse;}
+        td {
+            border:1px solid black;
+            background-color: #c6c3bd;
+            width:25px;min-width:25px;
+            height:25px;min-height:25px;
+
+        }
+
+        #boards {width:800px;margin: auto;text-align: center;}
+
+
+
+        .board_pieces  {
+
+            display: inline-block;
+        }
+        .board_shoot  {
+            margin-left: 25px;
+            display: inline-block;
+        }
+    </style>
+
+    <div id="boards">
+        <table class="board_pieces">
+            {% for ligne in board_pieces %}
+                <tr>
+                    {% for col in ligne %}
+                        <td>{{ col }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+
+        <table class="board_shoot">
+            {% for ligne in board_shoot %}
+                <tr>
+                    {% for col in ligne %}
+                        <td>{{ col }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
