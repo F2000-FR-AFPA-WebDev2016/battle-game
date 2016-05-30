@@ -11,8 +11,10 @@
         <header>
 
 
+
             <img class ="logo" src="{{ asset("bundles/afpaBattleGame/images/grognard.jpg") }}" />
             <div class= "bat">Bataille NAPOLEONNIENE</div>
+
             <!-- On utilise la nouvelle balise HTML5 "nav" pour indiquer un élement de navigation dans notre site -->
             <input class = "connect" type="submit" value="Se Connecter" />
 
@@ -20,14 +22,15 @@
             <nav>
                 <ul>
                     <li><a href="index.php">Accueil</a></li>
+                    <li>Game room</li>
                     <li><a href="gameroom.php">Game room</a></li>
-
                 </ul>
             </nav>
         </header>
 
 
     {% block body %}{% endblock %}
+
 
     <footer>
         <nav>
@@ -39,6 +42,18 @@
             </ul>
         </nav>
     </footer>
+    =======
+    <footer>
+        <nav>
+            <ul>
+                <li>2016 @copyright</li>
+                <li>Qui sommes-nous ?</li>
+                <li><a href="contact.php">Contact</a></li>
+                <li><a href="https://fr.wikipedia.org/wiki/Bataille_navale_%28jeu%29">Règles</a></li>
+            </ul>
+        </nav>
+    </footer>
+    >>>>>>> b670387a90a6461c4c9aba4e604ab7e0d8bb718d
 
 {% block javascripts %}{% endblock %}
 </body>
