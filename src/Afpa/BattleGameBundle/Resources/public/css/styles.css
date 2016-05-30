@@ -5,6 +5,7 @@
     position: absolute ;
     right: 8px;
     top: 8px;
+
 }
 .bat{
     font-size: 50px;
@@ -45,7 +46,4 @@ nav li {
     font-size:25px;
     color:black;
     display:inline-block;
-
-
-
 }
