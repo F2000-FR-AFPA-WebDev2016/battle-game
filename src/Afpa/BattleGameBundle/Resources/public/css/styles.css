@@ -3,9 +3,10 @@
     width: 200px;
     height: 50px;
     position: absolute ;
-    right: 8px;
-    top: 8px;
-
+    right:20px;
+    top: 30px;
+    border: 2px solid;
+    border-radius: 10px;
 }
 .bat{
     font-size: 50px;
@@ -31,7 +32,7 @@ footer {
 }
 
 header nav li {
-    margin:0 auto; width: 400px;
+    margin:-20px auto; width: 400px;
     text-align: center;
 }
 footer nav li{
@@ -46,4 +47,7 @@ nav li {
     font-size:25px;
     color:black;
     display:inline-block;
+
+
+
 }
