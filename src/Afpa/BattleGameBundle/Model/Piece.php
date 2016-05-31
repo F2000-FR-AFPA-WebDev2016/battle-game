@@ -26,4 +26,8 @@ abstract class Piece {
         return rand(0, 1);
     }
 
+    public function getOrientation() {
+        return $this->orientation;
+    }
+
 }
