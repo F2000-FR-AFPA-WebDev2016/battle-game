@@ -16,8 +16,10 @@ class GameController extends Controller {
         $oBoard = new \Afpa\BattleGameBundle\Model\Board();
 
         return array(
-            'board_pieces' => $oBoard->getBoardPieces(),
-            'board_shoot' => $oBoard->getBoardShoot(),
+            'board_pieces1' => $oBoard->getBoardPieces1(),
+            'board_shoot1' => $oBoard->getBoardShoot1(),
+            'board_pieces2' => $oBoard->getBoardPieces2(),
+            'board_shoot2' => $oBoard->getBoardShoot2(),
         );
     }
 
