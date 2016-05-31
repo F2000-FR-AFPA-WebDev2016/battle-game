@@ -18,11 +18,17 @@ class Board {
             $this->boardShoot[$ligne] = array();
             $this->boardPieces[$ligne] = array();
 
+
             for ($col = 0; $col < 10; $col++) {
                 $this->boardShoot[$ligne][$col] = 'X';
                 $this->boardPieces[$ligne][$col] = 'X';
             }
         }
+
+        // initialisation des pieces
+        /* $oCav1 = new Cavalier($x, $y, $orientation);
+          $oCav2 = new Cavalier($x, $y, $orientation);
+          $oCav3 = new Cavalier($x, $y, $orientation); */
     }
 
     public function getBoardPieces() {
