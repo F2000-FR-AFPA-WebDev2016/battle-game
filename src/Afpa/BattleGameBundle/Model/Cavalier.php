@@ -10,4 +10,8 @@ class Cavalier extends Piece {
     const SIZE = 2;
     const PICTURE = 'cavalier.png';
 
+    public function __toString() {
+        return 'Ca';
+    }
+
 }

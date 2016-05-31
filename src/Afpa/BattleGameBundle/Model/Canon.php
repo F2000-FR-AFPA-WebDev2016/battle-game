@@ -10,4 +10,8 @@ class Canon extends Piece {
     const SIZE = 3;
     const PICTURE = 'canon.png';
 
+    public function __toString() {
+        return 'Cn';
+    }
+
 }
