@@ -2,12 +2,47 @@
 <html>
     <head>
         <meta charset="UTF-8" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
         <title>{% block title %}Bataille NAPOLEONIENNE!{% endblock %}</title>
         {% block stylesheets %}
         {% endblock %}
         <link rel="stylesheet" type="text/css" href="{{ asset("bundles/afpaBattleGame/css/styles.css") }}"/>
     </head>
     <body>
+        <script>
+            $(document).ready(function () {
+
+
+
+
+                console.log('JQuery OK');
+                // 1. Au survol du menu, afficher "Survol du logo !" dans le
+                // paragraphe "monParagraphe"
+                // -- On récupère l'élément et on se connecte à l'évènement 'click'
+                $('.board_shoot td').on('click', function () {
+                    selected_case = $(this);
+
+                    $.ajax({
+                        async: true,
+                        type: "POST",
+                        url: "game/action",
+                        data: {
+                            x: $(this).data('x'),
+                            y: $(this).data('y'),
+                        },
+                        error: function (errorData) {
+                            console.log(errorData);
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            selected_case.css('background', 'red');
+                        }
+                    });
+
+                    console.log($(this).data('x') + ' ' + $(this).data('y'));
+                });
+            });
+        </script>
         <header>
             <img class ="logo" src="{{ asset("bundles/afpaBattleGame/images/grognard.jpg") }}" />
 
@@ -26,21 +61,23 @@
                 </ul>
             </nav>
         </header>
+        <label class= "mes" bgcolor=""WIDTH="50%" DIRECTION="LEFT" LOOP="-1">C'est au joueur 1 de Jouer</label>
+
+        {% block body %}
+
+        {% endblock %}
+        <footer>
+            <nav>
+                <ul>
+                    <li>2016 @copyright</li>
+                    <li>Qui sommes-nous ?</li>
+                    <li><a href="contact.php">Contact</a></li>
+                    <li><a href="https://fr.wikipedia.org/wiki/Bataille_navale_%28jeu%29">Règles</a></li>
+                </ul>
+            </nav>
+        </footer>
 
 
-    {% block body %}{% endblock %}
-    <footer>
-        <nav>
-            <ul>
-                <li>2016 @copyright</li>
-                <li>Qui sommes-nous ?</li>
-                <li><a href="contact.php">Contact</a></li>
-                <li><a href="https://fr.wikipedia.org/wiki/Bataille_navale_%28jeu%29">Règles</a></li>
-            </ul>
-        </nav>
-    </footer>
-
-
-{% block javascripts %}{% endblock %}
+    {% block javascripts %}{% endblock %}
 </body>
 </html>

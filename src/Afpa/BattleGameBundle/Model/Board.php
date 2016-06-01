@@ -4,6 +4,9 @@ namespace Afpa\BattleGameBundle\Model;
 
 class Board {
 
+    const J1 = 1;
+    const J2 = 2;
+
     protected $aPieces1;
     protected $boardPieces1;
     protected $boardShoot1;
@@ -46,6 +49,8 @@ class Board {
         // Placement des pièces auto
         $this->initPiecesAuto($this->boardPieces1, $this->aPieces1);
         $this->initPiecesAuto($this->boardPieces2, $this->aPieces2);
+
+        $this->playerTurn = self::J1;
     }
 
     public function initPiecesAuto(&$oBoard, &$aPieces) {
@@ -66,6 +71,37 @@ class Board {
             }
 
             unset($aPieces[$idx]);
+        }
+    }
+
+    public function doClick($x, $y) {
+
+
+        // mettre une croix dans (x, y)
+        if ($this->playerTurn == self::J1) {
+            $this->boardShoot1[$x][$y] = 'x';
+        }
+
+        if ($this->playerTurn == self::J2) {
+            $this->boardShoot2[$x][$y] = 'x';
+        }
+
+        $this->nextPlayer();
+    }
+
+    public function nextPlayer() {
+        if ($this->playerTurn == self::J1) {
+            $this->playerTurn = self::J2;
+        } else {
+            $this->playerTurn = self::J1;
+        }
+    }
+
+    public function getPlayer() {
+        if ($this->playerTurn == self::J1) {
+            return 'C\'est au joueur 1 de jouer';
+        } else {
+            return 'C\'est au joueur 2 de jouer';
         }
     }
 
