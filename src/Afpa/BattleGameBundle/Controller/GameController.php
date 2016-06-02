@@ -25,7 +25,7 @@ class GameController extends Controller {
         }
 
 
-        $this->getPlayer();
+        //$this->getPlayer();
 
         return array();
     }
@@ -74,6 +74,10 @@ class GameController extends Controller {
      */
     public function listRoomsAction(Request $request) {
         // Afficher la liste des parties existantes (= entity : Game)
+        $repo = $this->getDoctrine()->getRepository('AfpaBattleGameBundle:Game');
+        $aGames = $repo->findAll();
+
+        return array('games' => $aGames);
     }
 
 }
