@@ -12,7 +12,7 @@ use Afpa\BattleGameBundle\Model\Board;
 class GameController extends Controller {
 
     /**
-     * @Route("/game", name="game_home")
+     * @Route("/", name="game_home")
      * @Template()
      */
     public function indexAction(Request $request) {
@@ -65,7 +65,7 @@ class GameController extends Controller {
     }
 
     /**
-     * @Route("/game/list", name="game_list")"
+     * @Route("/game/list", name="game_list")
      * @Template()
      */
     public function listRoomsAction(Request $request) {
