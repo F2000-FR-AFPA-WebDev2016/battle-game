@@ -16,6 +16,7 @@ class GameController extends Controller {
      * @Template()
      */
     public function indexAction(Request $request) {
+
         $session = $request->getSession();
 
         $oBoard = $session->get('oBoard', null);
@@ -23,11 +24,16 @@ class GameController extends Controller {
             $oBoard = new Board();
             $session->set('oBoard', $oBoard);
         }
-
-
-        //$this->getPlayer();
-
         return array();
+    }
+
+    /**
+     * @Route("/game/create", name="game_create")
+     * @Template()
+     */
+    public function gameCreateAction(Request $request) {
+        // 1. Créer une entité Game (date de création)
+        // 2. Associer l'utilisateur au jeu (BDD)
     }
 
     /**
