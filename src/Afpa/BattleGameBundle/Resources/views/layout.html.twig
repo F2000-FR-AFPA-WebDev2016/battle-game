@@ -11,15 +11,11 @@
     <body>
         <script>
             $(document).ready(function () {
-
-
-
-
                 console.log('JQuery OK');
                 // 1. Au survol du menu, afficher "Survol du logo !" dans le
                 // paragraphe "monParagraphe"
                 // -- On récupère l'élément et on se connecte à l'évènement 'click'
-                $('.board_shoot td').on('click', function () {
+                $('#game').on('click', '.board_shoot td', function () {
                     selected_case = $(this);
 
                     $.ajax({
@@ -36,15 +32,35 @@
                         success: function (data) {
                             console.log(data);
                             selected_case.css('background', 'red');
+                            refresh();
                         }
                     });
 
-                    console.log($(this).data('x') + ' ' + $(this).data('y'));
+                    // console.log($(this).data('x') + ' ' + $(this).data('y'));
                 });
+
+                // rafraichir la vue partielle
+                function refresh() {
+                    // selected_case = $(this);
+                    $.ajax({
+                        async: true,
+                        type: "POST",
+                        url: "game/view",
+                        error: function (errorData) {
+                            console.log(errorData);
+                        },
+                        success: function (data) {
+                            $('#game').html(data);
+                        }
+                    });
+                }
+
+                // auto-refresh
+                setInterval(refresh, 2000);
             });
         </script>
         <header>
-            <img class ="logo" src="{{ asset("bundles/afpaBattleGame/images/grognard.jpg") }}" />
+            <img class ="logo" src="{{ asset("bundles/afpaBattleGame/images/canon.gif") }}" />
 
             <marquee class= "bat" bgcolor=""WIDTH="50%" DIRECTION="LEFT" LOOP="-1">Bataille NAPOLEONNIENE</marquee>
 
@@ -57,19 +73,19 @@
             <nav>
                 <ul>
                     <li><a href="index.php">Accueil</a></li>
-                    <li><a href="gameroom.php">Game room</a></li>
+                    <li><a href="{{ path ('Room')}}">Game room</a></li>
                 </ul>
             </nav>
         </header>
-        <label class= "mes" bgcolor=""WIDTH="50%" DIRECTION="LEFT" LOOP="-1">C'est au joueur 1 de Jouer</label>
 
         {% block body %}
 
         {% endblock %}
+
         <footer>
             <nav>
                 <ul>
-                    <li>2016 @copyright</li>
+                    <li>YanRic 2016 @copyright</li>
                     <li>Qui sommes-nous ?</li>
                     <li><a href="contact.php">Contact</a></li>
                     <li><a href="https://fr.wikipedia.org/wiki/Bataille_navale_%28jeu%29">Règles</a></li>

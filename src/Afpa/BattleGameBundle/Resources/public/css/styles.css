@@ -1,4 +1,9 @@
+.message{
+    font-size: 40px;
+    font-family: "Brush Script MT", Times, serif;
+    text-align: center
 
+}
 .connect{
     width: 200px;
     height: 50px;
@@ -32,8 +37,16 @@ footer {
 }
 
 header nav li {
-    margin:-20px auto; width: 400px;
+    margin:-30px auto; width: 380px;
     text-align: center;
+
+    width: 200px;
+    height: 30px;
+
+    border: 2px solid;
+    border-radius: 10px;
+    color:black;
+    background-color:white;
 }
 footer nav li{
     margin:0 auto; width: 300px;
@@ -51,3 +64,32 @@ nav li {
 
 
 }
+
+table {text-align: center;border-collapse: collapse;}
+td {
+    border:1px solid black;
+    background-color: #c6c3bd;
+    width:25px;min-width:25px;
+    height:25px;min-height:25px;
+
+}
+
+#boards {width:800px; margin: 5px auto ;text-align: center;}
+
+
+
+.board_pieces  {
+
+    display: inline-block;
+}
+.board_shoot  {
+    margin-left: 25px;
+    display: inline-block;
+
+}
+
+
+
+
+
+
