@@ -24,14 +24,14 @@ class GameController extends Controller {
             $session->set('oBoard', $oBoard);
         }
 
+        $this->getPlayer();
+
         return array(
             'board_pieces1' => $oBoard->getBoardPieces1(),
             'board_shoot1' => $oBoard->getBoardShoot1(),
             'board_pieces2' => $oBoard->getBoardPieces2(),
             'board_shoot2' => $oBoard->getBoardShoot2(),
         );
-
-        $this->getPlayer();
     }
 
     /**
