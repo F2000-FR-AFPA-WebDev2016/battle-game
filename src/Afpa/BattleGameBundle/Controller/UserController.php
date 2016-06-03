@@ -3,8 +3,10 @@
 namespace Afpa\BattleGameBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Afpa\BattleGameBundle\Entity\User;
 
 class UserController extends Controller {
 
@@ -22,8 +24,10 @@ class UserController extends Controller {
 
         if ($request->isMethod('POST')) {
             $oForm->bind($request);
-
             if ($oForm->isValid()) {
+                $oUser->setName($oUser->getLogin());
+                $oUser->setTopscore(0);
+
                 //Sauvegarde utilisateur en base de données
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($oUser);
@@ -62,7 +66,7 @@ class UserController extends Controller {
                     $oSession->set('oUser', $oUserBdd);
                     //$_SESSION['oUser]=$oUserBdd;
 
-                    return $this->redirect($this->generateURL('game'));
+                    return $this->redirect($this->generateURL('game_list'));
                 }
             }
         }
@@ -78,7 +82,7 @@ class UserController extends Controller {
         //vider la session
         $request->getSession()->clear();
         //rediriger vers pqge d'accueil
-        return $this->redirect($this->generateURL('game'));
+        return $this->redirect($this->generateURL('game_home'));
     }
 
 }

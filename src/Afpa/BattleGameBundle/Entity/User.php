@@ -152,21 +152,19 @@ class User {
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->games = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Add games
      *
      * @param \Afpa\BattleGameBundle\Entity\Game $games
      * @return User
      */
-    public function addGame(\Afpa\BattleGameBundle\Entity\Game $games)
-    {
+    public function addGame(\Afpa\BattleGameBundle\Entity\Game $games) {
         $this->games[] = $games;
-    
+
         return $this;
     }
 
@@ -175,18 +173,22 @@ class User {
      *
      * @param \Afpa\BattleGameBundle\Entity\Game $games
      */
-    public function removeGame(\Afpa\BattleGameBundle\Entity\Game $games)
-    {
+    public function removeGame(\Afpa\BattleGameBundle\Entity\Game $games) {
         $this->games->removeElement($games);
     }
 
     /**
      * Get games
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getGames()
-    {
+    public function getGames() {
         return $this->games;
     }
+
+    public function verifAuth($password) {
+        //comparer mot de passe et du formulaire et de la BDD
+        return ($this->password == $password);
+    }
+
 }
