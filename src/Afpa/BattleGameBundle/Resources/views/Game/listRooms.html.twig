@@ -1,3 +1,38 @@
-<div class="titreroom">
-    <label > {{'Game Room'}}</label>
-</div> 
+
+
+
+{% extends "AfpaBattleGameBundle::layout.html.twig" %}
+
+{% block title %}AfpaBattleGameBundle:Game{% endblock %}
+
+
+
+{% block body %}
+    <div class="titreroom">
+        <label > {{'Game Room'}}</label>
+    </div>
+
+
+    <h1>Liste des parties</h1>
+    <a href="TON-ADRESSE-ICI" target="_blank"><input type="button" value="Créer une nouvelle partie"></a>
+        {% for game in games %}
+            {{ game.name }}<br />
+        {{ game.createdDate|date('d/m/y') }}<br />
+        <br />
+
+        {% for game in games %}
+            <tr>
+                <td>{{ game.id }}</td>
+                <td>{{ game.name }}</td>
+                <td>{{ game.createdDate|date('d/m/y')}}</td>
+
+            </tr>
+        {% endfor %}
+
+
+
+
+    {% endfor%}
+
+{% endblock %}
+

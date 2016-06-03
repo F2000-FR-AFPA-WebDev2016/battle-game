@@ -12,10 +12,11 @@ use Afpa\BattleGameBundle\Model\Board;
 class GameController extends Controller {
 
     /**
-     * @Route("/", name="game_home")
+     * @Route("/game", name="game_home")
      * @Template()
      */
     public function indexAction(Request $request) {
+
         $session = $request->getSession();
 
         $oBoard = $session->get('oBoard', null);
@@ -23,8 +24,16 @@ class GameController extends Controller {
             $oBoard = new Board();
             $session->set('oBoard', $oBoard);
         }
-
         return array();
+    }
+
+    /**
+     * @Route("/game/create", name="game_create")
+     * @Template()
+     */
+    public function gameCreateAction(Request $request) {
+        // 1. Créer une entité Game (date de création)
+        // 2. Associer l'utilisateur au jeu (BDD)
     }
 
     /**
@@ -39,6 +48,7 @@ class GameController extends Controller {
             $oBoard = new Board();
             $session->set('oBoard', $oBoard);
         }
+
 
         return array(
             'board_pieces1' => $oBoard->getBoardPieces1(),
@@ -65,11 +75,15 @@ class GameController extends Controller {
     }
 
     /**
-     * @Route("/game/list", name="game_list")
+     * @Route("/game/list", name="game_list")"
      * @Template()
      */
     public function listRoomsAction(Request $request) {
         // Afficher la liste des parties existantes (= entity : Game)
+        $repo = $this->getDoctrine()->getRepository('AfpaBattleGameBundle:Game');
+        $aGames = $repo->findAll();
+
+        return array('games' => $aGames);
     }
 
 }
