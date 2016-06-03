@@ -4,9 +4,18 @@
     text-align: center
 
 }
-.connect{
+.login{
     width: 200px;
-    height: 50px;
+    height:30px;
+    position: absolute ;
+    right:20px;
+    top: 30px;
+    border: 2px solid;
+    border-radius: 10px;
+}
+.register{
+    width: 200px;
+    height: 300px;
     position: absolute ;
     right:20px;
     top: 30px;
@@ -25,9 +34,7 @@
     left: 8px;
     top: 8px;
 }
-body{
-    /* background: none repeat scroll 0 0 #01DF01;*/
-}
+
 header {
     background: none repeat scroll 0 0 #44AC9E;
     height: 100px;
@@ -62,9 +69,6 @@ nav li {
     font-size:25px;
     color:black;
     display:inline-block;
-
-
-
 }
 
 table {text-align: center;border-collapse: collapse;}
@@ -73,25 +77,13 @@ td {
     background-color: #c6c3bd;
     width:25px;min-width:25px;
     height:25px;min-height:25px;
-
 }
 
 #boards {width:800px; margin: 5px auto ;text-align: center;}
+.board_pieces  {display: inline-block;}
+.board_shoot  { margin-left: 25px; display: inline-block;}
 
-
-
-.board_pieces  {
-
-    display: inline-block;
+.listgame td {
+    border-collapse: collapse;
 }
-.board_shoot  {
-    margin-left: 25px;
-    display: inline-block;
-
-}
-
-
-
-
-
 

@@ -98,21 +98,19 @@ class Game {
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Add users
      *
      * @param \Afpa\BattleGameBundle\Entity\User $users
      * @return Game
      */
-    public function addUser(\Afpa\BattleGameBundle\Entity\User $users)
-    {
+    public function addUser(\Afpa\BattleGameBundle\Entity\User $users) {
         $this->users[] = $users;
-    
+
         return $this;
     }
 
@@ -121,18 +119,17 @@ class Game {
      *
      * @param \Afpa\BattleGameBundle\Entity\User $users
      */
-    public function removeUser(\Afpa\BattleGameBundle\Entity\User $users)
-    {
+    public function removeUser(\Afpa\BattleGameBundle\Entity\User $users) {
         $this->users->removeElement($users);
     }
 
     /**
      * Get users
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getUsers()
-    {
+    public function getUsers() {
         return $this->users;
     }
+
 }
