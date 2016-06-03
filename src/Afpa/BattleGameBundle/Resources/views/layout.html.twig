@@ -64,6 +64,14 @@
 
             <marquee class= "bat" bgcolor=""WIDTH="50%" DIRECTION="LEFT" LOOP="-1">Bataille NAPOLEONNIENE</marquee>
 
+            {% if app.request.session.get('oUser') is not null %}
+                Vous êtes connecté : {{app.request.session.get('oUser').login}}
+               
+                <a href="{{ path('logout') }}">Se déconnecter</a><br />
+            {% else %}
+                <a href="{{ path('register') }}">Creer mon compte</a><br />
+                <a href="{{ path('login') }}">Se connecter</a><br />
+            {% endif %}
 
 
             <!-- On utilise la nouvelle balise HTML5 "nav" pour indiquer un élement de navigation dans notre site -->
