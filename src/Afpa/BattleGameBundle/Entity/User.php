@@ -19,35 +19,35 @@ class User {
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="login", type="string", length=255)
      */
-    private $login;
+    protected $login;
 
     /**
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
      */
-    private $password;
+    protected $password;
 
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
-    private $name;
+    protected $name;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="topscore", type="integer")
      */
-    private $topscore;
+    protected $topscore;
 
     /**
      * @var array
@@ -55,7 +55,7 @@ class User {
      * @ORM\ManyToOne(targetEntity="Game", inversedBy="users")
      * @ORM\JoinColumn(name="game_id", referencedColumnName="id")
      */
-    private $game;
+    protected $game;
 
     /**
      * Get id
@@ -192,27 +192,25 @@ class User {
         return ($this->password == $password);
     }
 
-
     /**
      * Set game
      *
      * @param \Afpa\BattleGameBundle\Entity\Game $game
      * @return User
      */
-    public function setGame(\Afpa\BattleGameBundle\Entity\Game $game = null)
-    {
+    public function setGame(\Afpa\BattleGameBundle\Entity\Game $game = null) {
         $this->game = $game;
-    
+
         return $this;
     }
 
     /**
      * Get game
      *
-     * @return \Afpa\BattleGameBundle\Entity\Game 
+     * @return \Afpa\BattleGameBundle\Entity\Game
      */
-    public function getGame()
-    {
+    public function getGame() {
         return $this->game;
     }
+
 }

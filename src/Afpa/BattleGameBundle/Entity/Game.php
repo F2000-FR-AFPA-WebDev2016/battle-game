@@ -23,35 +23,42 @@ class Game {
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_date", type="datetime")
      */
-    private $createdDate;
+    protected $createdDate;
 
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
-    private $name;
+    protected $name;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="status", type="integer")
      */
-    private $status;
+    protected $status;
 
     /**
      * @var array
      *
      * @ORM\OneToMany(targetEntity="User", mappedBy="game")
      */
-    private $users;
+    protected $users;
+
+    /**
+     * @var text
+     *
+     * @ORM\Column(name="data", type="text")
+     */
+    protected $data;
 
     /**
      * Get id
@@ -160,6 +167,27 @@ class Game {
      */
     public function getStatus() {
         return $this->status;
+    }
+
+    /**
+     * Set data
+     *
+     * @param string $data
+     * @return Game
+     */
+    public function setData($data) {
+        $this->data = $data;
+
+        return $this;
+    }
+
+    /**
+     * Get data
+     *
+     * @return string
+     */
+    public function getData() {
+        return $this->data;
     }
 
 }

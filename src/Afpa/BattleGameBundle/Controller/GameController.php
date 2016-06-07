@@ -101,22 +101,53 @@ class GameController extends Controller {
      */
     public function createGameAction(Request $request) {
         $oSession = $request->getSession();
+        if (!$oSession->get('oUser') instanceof User) {
+            return $this->redirect($this->generateURL('game_accueil'));
+        }
 
         $oGame = new Game;
-        $oGame->setName('test4');
-        $oGame->setCreatedDate(new \DateTime('now'));
-        $oGame->setStatus(Game::STATUS_WAITING);
-        //$oGame->setTopscore(0);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($oGame);
         $em->flush();
 
-        //$oGame->getId();
         $repo = $this->getDoctrine()->getRepository('AfpaBattleGameBundle:User');
         $oUserBdd = $repo->findOneByLogin($oSession->get('oUser')->getLogin());
         $oUserBdd->setGame($oGame);
         $em->flush();
+
+        return $this->redirect($this->generateURL('game_list'));
+    }
+
+    /**
+     * @Route("/game/join/{idGame}", name="game_join")
+     * @Template()
+     */
+    public function joinGameAction(Request $request, $idGame) {
+        $oSession = $request->getSession();
+
+        $repo = $this->getDoctrine()->getRepository('AfpaBattleGameBundle:Game');
+        $oGame = $repo->find($idGame);
+
+        if ($oGame instanceof Game) {
+            $repo = $this->getDoctrine()->getRepository('AfpaBattleGameBundle:User');
+            $oUserBdd = $repo->findOneByLogin($oSession->get('oUser')->getLogin());
+            $oUserBdd->setGame($oGame);
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+
+            // On vérifie que la partie est complète
+            if (count($oGame->getUsers()) == 2) {
+                // -> Si oui, on la
+                $oBoard = new Board;
+                $oBoard->setPlayers($oGame);
+
+                $oGame->setStatus(Game::STATUS_STARTED);
+                $oGame->setData(serialize($oBoard));
+                $em->flush();
+            }
+        }
 
         return $this->redirect($this->generateURL('game_list'));
     }

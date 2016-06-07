@@ -9,23 +9,40 @@
 
 
     <h1>Liste des parties</h1>
-    <a href="{{ path('game_create')}}" ><input class="createGame" type="button" value="Créer une nouvelle partie"></a><br><br>
+
+    <a href="{{ path('game_create')}}" ><input class="createGame" type="button" value="Créer une nouvelle partie"
+                                               {% if not app.request.session.get('oUser') is not null %}disabled="disabled" title="Vous devez être connecté"{%endif%} ></a>
+    <br><br>
 
     <table class="listgame">
         {% for game in games %}
-
             <tr>
-                <td>{{ game.id }}</td>
+                <td class='colonne1'>{{  game.id }}</td>
                 <td>{{ game.name }}</td>
+                <td>
+                    {{ game.getUsers | length}} / 2
+                    <br />
+                    {% for user in game.getUsers %}
+                        {{ user.getLogin }}<br />
+                    {% endfor %}
+
+
+                </td>
                 <td>{{ game.createdDate|date('d/m/y H:i:s')}}</td>
+                <td>
+                    {% if game.status == 0 %}
+                        <a href="{{ path('game_join', {'idGame' : game.id })}}"><input  type="submit" value="Rejoindre" /></a><br>
+
+                    {% elseif game.status == 1 %}
+                        <a href="#">
+                            <input type="submit" value="Observer" />
+                        </a>
+
+                    {% elseif game.status == 2 %}
+                        Partie terminée
+                    {% endif %}
+                </td>
             </tr>
-            {% if game.status == 0 %}
-                <div>
-                    <a href="#"><input  type="submit" value="Rejoindre" /></a>
-                </div>
-
-            {% endif %}
-
 
         {% endfor %}
     </table>

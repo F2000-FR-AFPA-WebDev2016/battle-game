@@ -14,6 +14,8 @@ class Board {
     protected $boardPieces2;
     protected $boardShoot2;
     protected $playerTurn;
+    protected $playerJ1;
+    protected $playerJ2;
 
     public function __construct() {
         // initialisation des plateaux J1
@@ -175,6 +177,16 @@ class Board {
 
     public static function randomCoords() {
         return array(rand(0, 9), rand(0, 9));
+    }
+
+    public function setPlayers(Game $oGame) {
+        $aPlayers = $oGame->getUsers()->toArray();
+        if (count($aPlayers) == 2) {
+            shuffle($aPlayers);
+
+            $this->playerJ1 = $aPlayers[0]->getId();
+            $this->playerJ2 = $aPlayers[1]->getId();
+        }
     }
 
 }
