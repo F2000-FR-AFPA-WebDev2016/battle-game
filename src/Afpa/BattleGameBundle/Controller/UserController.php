@@ -32,6 +32,7 @@ class UserController extends Controller {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($oUser);
                 $em->flush();
+                return $this->redirect($this->generateURL('game_accueil'));
             }
         }
 
@@ -81,8 +82,8 @@ class UserController extends Controller {
     public function logoutAction(Request $request) {
         //vider la session
         $request->getSession()->clear();
-        //rediriger vers pqge d'accueil
-        return $this->redirect($this->generateURL('game_home'));
+        //rediriger vers page d'accueil
+        return $this->redirect($this->generateURL('game_accueil'));
     }
 
 }

@@ -13,6 +13,30 @@
     border: 2px solid;
     border-radius: 10px;
 }
+
+
+.logout input{
+    width: 200px;
+    height:30px;
+    position: absolute ;
+    right:20px;
+    top: 45px;
+    border: 2px solid;
+    border-radius: 10px;
+
+}
+.logout {
+
+
+    width: 200px;
+    height:30px;
+    position: absolute ;
+    right:13px;
+    top: 20px;
+
+
+}
+
 .register{
     width: 200px;
     height: 30px;
@@ -24,7 +48,7 @@
 }
 .bat{
     font-size: 50px;
-    display: inline-block;
+
     font-family: "Brush Script MT", Times, serif;
 }
 .logo{
@@ -85,5 +109,13 @@ td {
 
 .listgame td {
     border-collapse: collapse;
+    width:70px;min-width:70px;
+    height:25px;min-height:25px;
+}
+
+.createGame {
+    font-size:20px;
+    border: 2px solid;
+    border-radius: 10px;
 }
 

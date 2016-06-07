@@ -1,12 +1,6 @@
-
-
-
-
 {% extends "AfpaBattleGameBundle::layout.html.twig" %}
 
 {% block title %}AfpaBattleGameBundle:Game{% endblock %}
-
-
 
 {% block body %}
     <div class="titreroom">
@@ -15,7 +9,7 @@
 
 
     <h1>Liste des parties</h1>
-    <a href="TON-ADRESSE-ICI" target="_blank"><input type="button" value="Créer une nouvelle partie"></a>
+    <a href="{{ path('game_create')}}" ><input class="createGame" type="button" value="Créer une nouvelle partie"></a><br><br>
 
     <table class="listgame">
         {% for game in games %}
@@ -23,15 +17,17 @@
             <tr>
                 <td>{{ game.id }}</td>
                 <td>{{ game.name }}</td>
-                <td>{{ game.createdDate|date('d/m/y')}}</td>
-
+                <td>{{ game.createdDate|date('d/m/y H:i:s')}}</td>
             </tr>
+            {% if game.status == 0 %}
+                <div>
+                    <a href="#"><input  type="submit" value="Rejoindre" /></a>
+                </div>
+
+            {% endif %}
+
 
         {% endfor %}
     </table>
-
-
-
-
 
 {% endblock %}

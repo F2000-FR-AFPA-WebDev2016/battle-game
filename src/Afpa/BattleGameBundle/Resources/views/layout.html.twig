@@ -6,7 +6,7 @@
         <title>{% block title %}Bataille NAPOLEONIENNE!{% endblock %}</title>
         {% block stylesheets %}
         {% endblock %}
-        <link rel="stylesheet" type="text/css" href="{{ asset("bundles/afpaBattleGame/css/styles.css") }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ asset("bundles/afpabattlegame/css/styles.css") }}"/>
     </head>
     <body>
         <script>
@@ -60,23 +60,24 @@
             });
         </script>
         <header>
-            <img class ="logo" src="{{ asset("bundles/afpaBattleGame/images/canon.gif") }}" />
+            <img class ="logo" src="{{ asset("bundles/afpabattlegame/images/canon.gif") }}" />
 
             <marquee class= "bat" bgcolor=""WIDTH="50%" DIRECTION="LEFT" LOOP="-1">Bataille NAPOLEONNIENE</marquee>
 
             {% if app.request.session.get('oUser') is not null %}
-                Vous êtes connecté : {{app.request.session.get('oUser').login}}
-               
-                <a href="{{ path('logout') }}">Se déconnecter</a><br />
+                <div class ="logout">
+                    Vous etes connecté : {{app.request.session.get('oUser').login}}<br>
+                    <a href="{{ path('logout') }}"><input  type="submit" value="Déconnexion" /></a><br />
+                </div>
             {% else %}
                 <a href="{{ path('register') }}"><input class = "register" type="submit" value="Inscription" /></a><br />
                 <a href="{{ path('login') }}"><input class = "login" type="submit" value="Connexion" /></a>
-            {% endif %}
+                {% endif %}
 
 
             <!-- On utilise la nouvelle balise HTML5 "nav" pour indiquer un élement de navigation dans notre site -->
 
-            
+
 
 
             <nav>
