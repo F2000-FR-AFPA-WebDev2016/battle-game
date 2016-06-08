@@ -115,6 +115,10 @@ class GameController extends Controller {
         }
 
         $oGame = new Game;
+        $oGame->setData('');
+        $oGame->setName('');
+        $oGame->setCreatedDate(new \Datetime('now'));
+        $oGame->setStatus(0);
         $oGame->setName('test4');
         $oGame->setCreatedDate(new \DateTime('now'));
         $oGame->setStatus(Game::STATUS_WAITING);
