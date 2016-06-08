@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Afpa\BattleGameBundle\Model\Board;
 use Afpa\BattleGameBundle\Entity\Game;
+use Afpa\BattleGameBundle\Entity\User;
 
 class GameController extends Controller {
 
@@ -106,6 +107,10 @@ class GameController extends Controller {
         }
 
         $oGame = new Game;
+        $oGame->setData('');
+        $oGame->setName('');
+        $oGame->setCreatedDate(new \Datetime('now'));
+        $oGame->setStatus(0);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($oGame);
