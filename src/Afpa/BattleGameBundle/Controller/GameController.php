@@ -9,8 +9,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Afpa\BattleGameBundle\Model\Board;
 use Afpa\BattleGameBundle\Entity\Game;
+use Afpa\BattleGameBundle\Entity\User;
 
 class GameController extends Controller {
+
+    /**
+     * @Route("/", name="game_accueil")"
+     * @Template()
+     */
+    public function accueilAction() {
+        return array();
+    }
 
     /**
      * @Route("/game", name="game_home")
@@ -26,15 +35,6 @@ class GameController extends Controller {
             $session->set('oBoard', $oBoard);
         }
         return array();
-    }
-
-    /**
-     * @Route("/game/create", name="game_create")
-     * @Template()
-     */
-    public function gameCreateAction(Request $request) {
-        // 1. Créer une entité Game (date de création)
-        // 2. Associer l'utilisateur au jeu (BDD)
     }
 
     /**
@@ -84,15 +84,14 @@ class GameController extends Controller {
         $repo = $this->getDoctrine()->getRepository('AfpaBattleGameBundle:Game');
         $aGames = $repo->findAll();
 
-        return array('games' => $aGames);
-    }
+        // SI utilisateur connecté, récupérer la partie si existante
+        // Et si partie démarrée (started), redirection vers game/play/[id]
+        $oGame = null;
 
-    /**
-     * @Route("/", name="game_accueil")"
-     * @Template()
-     */
-    public function accueilAction() {
-        return array();
+        return array(
+            'games' => $aGames,
+            'game_user' => $oGame,
+        );
     }
 
     /**
@@ -102,10 +101,14 @@ class GameController extends Controller {
     public function createGameAction(Request $request) {
         $oSession = $request->getSession();
         if (!$oSession->get('oUser') instanceof User) {
-            return $this->redirect($this->generateURL('game_accueil'));
+            return $this->redirect($this->generateURL('game_list'));
         }
 
         $oGame = new Game;
+        $oGame->setName('test4');
+        $oGame->setCreatedDate(new \DateTime('now'));
+        $oGame->setStatus(Game::STATUS_WAITING);
+        $oGame->setData('');
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($oGame);
@@ -125,6 +128,9 @@ class GameController extends Controller {
      */
     public function joinGameAction(Request $request, $idGame) {
         $oSession = $request->getSession();
+        if (!$oSession->get('oUser') instanceof User) {
+            return $this->redirect($this->generateURL('game_list'));
+        }
 
         $repo = $this->getDoctrine()->getRepository('AfpaBattleGameBundle:Game');
         $oGame = $repo->find($idGame);
@@ -146,10 +152,59 @@ class GameController extends Controller {
                 $oGame->setStatus(Game::STATUS_STARTED);
                 $oGame->setData(serialize($oBoard));
                 $em->flush();
+                return $this->redirect($this->generateURL('game_play', array('idGame' => $idGame)));
             }
         }
 
         return $this->redirect($this->generateURL('game_list'));
+    }
+
+    /**
+     * @Route("/game/play/{idGame}", name="game_play")"
+     * @Template()
+     */
+    public function playGameAction(Request $request, $idGame) {
+        $repo = $this->getDoctrine()->getRepository('AfpaBattleGameBundle:Game');
+        $oGame = $repo->findOneBy(array(
+            'id' => $idGame,
+            'status' => Game::STATUS_STARTED
+        ));
+
+        if (!$oGame instanceof Game) {
+            return $this->redirect($this->generateURL('game_list'));
+        }
+
+        return array(
+            'idGame' => $idGame
+        );
+    }
+
+    /**
+     * @Route("/game/refresh/{idGame}", name="game_refresh")"
+     * @Template()
+     */
+    public function refreshGameAction(Request $request, $idGame) {
+        $repo = $this->getDoctrine()->getRepository('AfpaBattleGameBundle:Game');
+        $oGame = $repo->findOneBy(array(
+            'id' => $idGame,
+            'status' => Game::STATUS_STARTED
+        ));
+
+        if (!$oGame instanceof Game) {
+            return $this->redirect($this->generateURL('game_list'));
+        }
+
+        // Afficher la partie
+
+        $oBoard = unserialize($oGame->getData());
+
+        return array(
+            'board_pieces1' => $oBoard->getBoardPieces1(),
+            'board_shoot1' => $oBoard->getBoardShoot1(),
+            'board_pieces2' => $oBoard->getBoardPieces2(),
+            'board_shoot2' => $oBoard->getBoardShoot2(),
+            'player' => $oBoard->getPlayer(),
+        );
     }
 
 }
