@@ -3,7 +3,7 @@
 {% block body %}
 
     <div id="game">
-        {{ render(controller('AfpaBattleGameBundle:Game:gameView')) }}
+        {{ render(controller('AfpaBattleGameBundle:Game:refreshGame', { 'idGame': idGame })) }}
     </div>
 
 {% endblock %}

@@ -2,6 +2,8 @@
 
 namespace Afpa\BattleGameBundle\Model;
 
+use Afpa\BattleGameBundle\Entity\Game;
+
 class Board {
 
     const J1 = 1;

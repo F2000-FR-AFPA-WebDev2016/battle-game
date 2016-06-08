@@ -25,12 +25,13 @@
                     {% for user in game.getUsers %}
                         {{ user.getLogin }}<br />
                     {% endfor %}
-
-
                 </td>
                 <td>{{ game.createdDate|date('d/m/y H:i:s')}}</td>
                 <td>
-                    {% if game.status == 0 %}
+                    {% if (game_user is not null) and game_user.id == game.id %}
+                        En attente de joueurs...
+
+                    {% elseif game.status == 0 %}
                         <a href="{{ path('game_join', {'idGame' : game.id })}}"><input  type="submit" value="Rejoindre" /></a><br>
 
                     {% elseif game.status == 1 %}
