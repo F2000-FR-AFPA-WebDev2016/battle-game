@@ -1,0 +1,55 @@
+<div class="message">
+    <label > {{player}}</label>
+</div>
+<div id="boards">
+
+    <table class="board_pieces">
+        {% for x in 0.. board_pieces1|length -1 %}
+            <tr>
+                {% for y in 0..board_pieces1[x]|length-1 %}
+                    <td id="L{{ x }}C{{ y }}" data-x="{{ x }}" data-y = "{{ y }}">
+                        {{ board_pieces1[x][y] }}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+
+    <table class="board_shoot">
+        {% for x in 0.. board_shoot1|length -1 %}
+            <tr>
+                {% for y in 0..board_shoot1[x]|length-1 %}
+                    <td id="L{{ x }}C{{ y }}" data-x="{{ x }}" data-y = "{{ y }}">
+                        {{ board_shoot1[x][y] }}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+
+    <br />
+
+    <table class="board_pieces">
+        {% for x in 0.. board_pieces2|length -1 %}
+            <tr>
+                {% for y in 0..board_pieces2[x]|length-1 %}
+                    <td id="L{{ x }}C{{ y }}" data-x="{{ x }}" data-y = "{{ y }}">
+                        {{ board_pieces2[x][y] }}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+
+    <table class="board_shoot">
+        {% for x in 0.. board_shoot2|length -1 %}
+            <tr>
+                {% for y in 0..board_shoot2[x]|length-1 %}
+                    <td id="L{{ x }}C{{ y }}" data-x="{{ x }}" data-y = "{{ y }}">
+                        {{ board_shoot2[x][y] }}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+</div>
