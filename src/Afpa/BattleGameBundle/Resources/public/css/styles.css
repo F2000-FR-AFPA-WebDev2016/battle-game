@@ -103,7 +103,7 @@ td {
     height:25px;min-height:25px;
 }
 
-#boards {width:800px; margin: 5px auto ;text-align: center;}
+#game {width:800px; margin: 5px auto ;text-align: center;}
 .board_pieces  {display: inline-block;}
 .board_shoot  { margin-left: 25px; display: inline-block;}
 

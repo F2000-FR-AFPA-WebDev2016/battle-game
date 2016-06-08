@@ -38,7 +38,7 @@ class GameController extends Controller {
     }
 
     /**
-     * @Route("/game/view", name="game_view")
+     * @Route("/game/refresh", name="game_refresh")
      * @Template()
      */
     public function gameViewAction(Request $request) {
@@ -49,7 +49,6 @@ class GameController extends Controller {
             $oBoard = new Board();
             $session->set('oBoard', $oBoard);
         }
-
 
         return array(
             'board_pieces1' => $oBoard->getBoardPieces1(),
@@ -80,13 +79,24 @@ class GameController extends Controller {
      * @Template()
      */
     public function listRoomsAction(Request $request) {
+        $oSession = $request->getSession();
+
         // Afficher la liste des parties existantes (= entity : Game)
         $repo = $this->getDoctrine()->getRepository('AfpaBattleGameBundle:Game');
         $aGames = $repo->findAll();
 
-        // SI utilisateur connecté, récupérer la partie si existante
+        // Si utilisateur connecté, récupérer la partie si existante
         // Et si partie démarrée (started), redirection vers game/play/[id]
         $oGame = null;
+        if ($oSession->get('oUser') instanceof User) {
+            $repo = $this->getDoctrine()->getRepository('AfpaBattleGameBundle:User');
+            $oUser = $repo->find($oSession->get('oUser')->getId());
+
+            $oGame = $oUser->getGame();
+            if ($oGame instanceof Game && $oGame->getStatus() == Game::STATUS_STARTED) {
+                return $this->redirect($this->generateURL('game_play', array('idGame' => $oGame->getId())));
+            }
+        }
 
         return array(
             'games' => $aGames,
@@ -142,7 +152,6 @@ class GameController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-
             // On vérifie que la partie est complète
             if (count($oGame->getUsers()) == 2) {
                 // -> Si oui, on la
@@ -195,10 +204,9 @@ class GameController extends Controller {
         }
 
         // Afficher la partie
-
         $oBoard = unserialize($oGame->getData());
-
         return array(
+            'idGame' => $idGame,
             'board_pieces1' => $oBoard->getBoardPieces1(),
             'board_shoot1' => $oBoard->getBoardShoot1(),
             'board_pieces2' => $oBoard->getBoardPieces2(),

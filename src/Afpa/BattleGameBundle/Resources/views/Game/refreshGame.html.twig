@@ -1,8 +1,7 @@
 <div class="message">
-    <label > {{player}}</label>
+    <label > {{ player }}</label>
 </div>
-<div id="boards">
-
+<div id="game" data-id="{{ idGame }}">
     <table class="board_pieces">
         {% for x in 0.. board_pieces1|length -1 %}
             <tr>
@@ -14,7 +13,6 @@
             </tr>
         {% endfor %}
     </table>
-
     <table class="board_shoot">
         {% for x in 0.. board_shoot1|length -1 %}
             <tr>
@@ -40,7 +38,6 @@
             </tr>
         {% endfor %}
     </table>
-
     <table class="board_shoot">
         {% for x in 0.. board_shoot2|length -1 %}
             <tr>

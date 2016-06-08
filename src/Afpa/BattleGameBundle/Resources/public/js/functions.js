@@ -1,5 +1,15 @@
 $(document).ready(function () {
     console.log('JQuery OK');
+
+    /**
+     * Récupérer le data-id de l'élément #game
+     * @returns int
+     */
+    function getGameId() {
+        return $('#game').data('id');
+    }
+
+
     // 1. Au survol du menu, afficher "Survol du logo !" dans le
     // paragraphe "monParagraphe"
     // -- On récupère l'élément et on se connecte à l'évènement 'click'
@@ -29,11 +39,17 @@ $(document).ready(function () {
 
     // rafraichir la vue partielle
     function refresh() {
+        url = START_URL + '/game/refresh';
+        idGame = getGameId();
+        if (idGame) {
+            url += '/' + idGame;
+        }
+
         // selected_case = $(this);
         $.ajax({
             async: true,
             type: 'POST',
-            url: START_URL + '/game/view',
+            url: url,
             error: function (errorData) {
                 console.log(errorData);
             },
@@ -43,6 +59,9 @@ $(document).ready(function () {
         });
     }
 
-    // auto-refresh
-    setInterval(refresh, 2000);
+    // auto-refresh si jeu présent sur la page
+    if ($('#game').length > 0) {
+        console.log(getGameId());
+        setInterval(refresh, 2000);
+    }
 });
