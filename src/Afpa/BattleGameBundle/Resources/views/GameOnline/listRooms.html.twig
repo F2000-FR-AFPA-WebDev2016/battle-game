@@ -2,6 +2,10 @@
 
 {% block title %}AfpaBattleGameBundle:Game{% endblock %}
 
+{% block redirection %}
+    <meta http-equiv="refresh" content="2; URL={{ url('game_list') }}">
+{% endblock %}
+
 {% block body %}
     <div class="titreroom">
         <label > {{'Game Room'}}</label>
@@ -47,5 +51,4 @@
 
         {% endfor %}
     </table>
-
 {% endblock %}
