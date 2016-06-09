@@ -191,4 +191,24 @@ class Board {
         }
     }
 
+    public function getInfosJoueur($idJoueur) {
+        $aData = array(
+            'board_pieces1' => $this->getBoardPieces1(),
+            'board_shoot1' => $this->getBoardShoot1(),
+            'board_pieces2' => $this->getBoardPieces2(),
+            'board_shoot2' => $this->getBoardShoot2(),
+        );
+
+        if ($idJoueur == $this->playerJ1) {
+            $aData['board_pieces2'] = null;
+            $aData['board_shoot2'] = null;
+        }
+        if ($idJoueur == $this->playerJ2) {
+            $aData['board_pieces1'] = null;
+            $aData['board_shoot1'] = null;
+        }
+
+        return $aData;
+    }
+
 }

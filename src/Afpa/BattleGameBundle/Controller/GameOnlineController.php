@@ -136,6 +136,8 @@ class GameOnlineController extends Controller {
      * @Template()
      */
     public function gameRefreshAction(Request $request, $idGame) {
+        $oSession = $request->getSession();
+
         $repo = $this->getDoctrine()->getRepository('AfpaBattleGameBundle:Game');
         $oGame = $repo->findOneBy(array(
             'id' => $idGame,
@@ -149,13 +151,21 @@ class GameOnlineController extends Controller {
 
         // Afficher la partie
         $oBoard = unserialize($oGame->getData());
+
+        $idUser = null;
+        if ($oSession->get('oUser') instanceof User) {
+            $idUser = $oSession->get('oUser')->getId();
+        }
+
+        $aData = $oBoard->getInfosJoueur($idUser);
+
         return array(
             'idGame' => $idGame,
-            'board_pieces1' => $oBoard->getBoardPieces1(),
-            'board_shoot1' => $oBoard->getBoardShoot1(),
-            'board_pieces2' => $oBoard->getBoardPieces2(),
-            'board_shoot2' => $oBoard->getBoardShoot2(),
             'player' => $oBoard->getPlayer(),
+            'board_pieces1' => $aData['board_pieces1'],
+            'board_shoot1' => $aData['board_shoot1'],
+            'board_pieces2' => $aData['board_pieces2'],
+            'board_shoot2' => $aData['board_shoot2'],
         );
     }
 

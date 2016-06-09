@@ -35,7 +35,7 @@
                         <a href="{{ path('game_join', {'idGame' : game.id })}}"><input  type="submit" value="Rejoindre" /></a><br>
 
                     {% elseif game.status == 1 %}
-                        <a href="#">
+                        <a href="{{ path('game_play', {'idGame' : game.id })}}">
                             <input type="submit" value="Observer" />
                         </a>
 
