@@ -3,6 +3,7 @@
 namespace Afpa\BattleGameBundle\Model;
 
 use Afpa\BattleGameBundle\Entity\Game;
+use Afpa\BattleGameBundle\Model\Piece;
 
 class Board {
 
@@ -20,11 +21,11 @@ class Board {
     protected $playerJ2;
 
     public function __construct() {
-        // initialisation des plateaux J1
+// initialisation des plateaux J1
         $this->boardShoot1 = array();
         $this->boardPieces1 = array();
 
-        // initialisation des cellules J1
+// initialisation des cellules J1
         for ($ligne = 0; $ligne < 10; $ligne++) {
             $this->boardShoot1[$ligne] = array();
             $this->boardPieces1[$ligne] = array();
@@ -36,7 +37,7 @@ class Board {
             }
         }
 
-        // initialisation des pieces J1
+// initialisation des pieces J1
         $this->aPieces1 = array();
         $this->aPieces1[] = new Cavalier(Piece::randomOrientation());
         $this->aPieces1[] = new Cavalier(Piece::randomOrientation());
@@ -45,12 +46,12 @@ class Board {
         $this->aPieces1[] = new Grognard(Piece::randomOrientation());
         $this->aPieces1[] = new Canon(Piece::randomOrientation());
 
-        // initialisation J2
+// initialisation J2
         $this->boardShoot2 = $this->boardShoot1;
         $this->boardPieces2 = $this->boardPieces1;
         $this->aPieces2 = $this->aPieces1;
 
-        // Placement des pièces auto
+// Placement des pièces auto
         $this->initPiecesAuto($this->boardPieces1, $this->aPieces1);
         $this->initPiecesAuto($this->boardPieces2, $this->aPieces2);
 
@@ -59,12 +60,12 @@ class Board {
 
     public function initPiecesAuto(&$oBoard, &$aPieces) {
         foreach ($aPieces as $idx => $oPiece) {
-            // Calcul de coordonnées valides
+// Calcul de coordonnées valides
             do {
                 $aPos = self::randomCoords();
             } while (!$this->placementEstPossible($oBoard, $aPos, $oPiece));
 
-            // Placement de la pièce
+// Placement de la pièce
             $oPiece->setXY($aPos[0], $aPos[1]);
             for ($i = 0; $i < $oPiece::SIZE; $i++) {
                 if ($oPiece->getOrientation() == Piece::ORIENT_H) {
@@ -81,15 +82,24 @@ class Board {
     public function doClick($x, $y) {
 
 
-        // mettre une croix dans (x, y)
+// mettre une croix dans (x, y)
         if ($this->playerTurn == self::J1) {
             $this->boardShoot1[$x][$y] = 'x';
+            if ($this->boardPieces2[$x][$y] instanceof Piece) {
+                $this->boardPieces2[$x][$y] = '0';
+            } else {
+                $this->boardPieces2[$x][$y] = 'x';
+            }
+        } else {
+            if ($this->playerTurn == self::J2) {
+                $this->boardShoot2[$x][$y] = 'x';
+                if ($this->boardPieces1[$x][$y] instanceof Piece) {
+                    $this->boardPieces1[$x][$y] = '0';
+                } else {
+                    $this->boardPieces1[$x][$y] = 'x';
+                }
+            }
         }
-
-        if ($this->playerTurn == self::J2) {
-            $this->boardShoot2[$x][$y] = 'x';
-        }
-
         $this->nextPlayer();
     }
 
@@ -106,6 +116,14 @@ class Board {
             return 'C\'est au joueur 1 de jouer';
         } else {
             return 'C\'est au joueur 2 de jouer';
+        }
+    }
+
+    public function getPlayerId() {
+        if ($this->playerTurn == self::J1) {
+            return $this->playerJ1;
+        } else {
+            return $this->playerJ2;
         }
     }
 
@@ -136,7 +154,7 @@ class Board {
     public function placementEstPossible($oBoard, $aPos, $oPiece) {
         $bPossible = True;
 
-        // Est-ce les cases nécessaires sont vides et dans le plateau
+// Est-ce les cases nécessaires sont vides et dans le plateau
         for ($i = 0; $i < $oPiece::SIZE; $i++) {
             if ($oPiece->getOrientation() === Piece::ORIENT_H) {
                 $testXY = array($aPos[0], $aPos[1] + $i);

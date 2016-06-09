@@ -159,9 +159,14 @@ class GameOnlineController extends Controller {
 
         $aData = $oBoard->getInfosJoueur($idUser);
 
+        $sPlayer = $oBoard->getPlayer();
+        if ($oSession->get('oUser')->getId() == $oBoard->getPlayerId()) {
+            $sPlayer = "C'est à vous de jouer !";
+        }
+
         return array(
             'idGame' => $idGame,
-            'player' => $oBoard->getPlayer(),
+            'player' => $sPlayer,
             'board_pieces1' => $aData['board_pieces1'],
             'board_shoot1' => $aData['board_shoot1'],
             'board_pieces2' => $aData['board_pieces2'],
