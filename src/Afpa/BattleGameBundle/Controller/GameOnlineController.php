@@ -200,9 +200,8 @@ class GameOnlineController extends Controller {
         $x = $request->get('x');
         $y = $request->get('y');
 
-
         $oBoard = unserialize($oGame->getData());
-        $oBoard->doClick($x, $y);
+        $oBoard->doClick($x, $y, $oSession->get('oUser')->getId());
         $oGame->setData(serialize($oBoard));
 
         // Sauvegarde du nouvel état

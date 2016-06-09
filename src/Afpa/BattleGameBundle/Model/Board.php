@@ -79,28 +79,29 @@ class Board {
         }
     }
 
-    public function doClick($x, $y) {
-
-
-// mettre une croix dans (x, y)
-        if ($this->playerTurn == self::J1) {
-            $this->boardShoot1[$x][$y] = 'x';
-            if ($this->boardPieces2[$x][$y] instanceof Piece) {
-                $this->boardPieces2[$x][$y] = '0';
-            } else {
-                $this->boardPieces2[$x][$y] = 'x';
-            }
-        } else {
-            if ($this->playerTurn == self::J2) {
-                $this->boardShoot2[$x][$y] = 'x';
-                if ($this->boardPieces1[$x][$y] instanceof Piece) {
-                    $this->boardPieces1[$x][$y] = '0';
+    public function doClick($x, $y, $idUser) {
+        // Check user
+        if ($idUser == $this->getPlayerId()) {
+            // mettre une croix dans (x, y)
+            if ($this->playerTurn == self::J1) {
+                $this->boardShoot1[$x][$y] = 'x';
+                if ($this->boardPieces2[$x][$y] instanceof Piece) {
+                    $this->boardPieces2[$x][$y] = '0';
                 } else {
-                    $this->boardPieces1[$x][$y] = 'x';
+                    $this->boardPieces2[$x][$y] = 'x';
+                }
+            } else {
+                if ($this->playerTurn == self::J2) {
+                    $this->boardShoot2[$x][$y] = 'x';
+                    if ($this->boardPieces1[$x][$y] instanceof Piece) {
+                        $this->boardPieces1[$x][$y] = '0';
+                    } else {
+                        $this->boardPieces1[$x][$y] = 'x';
+                    }
                 }
             }
+            $this->nextPlayer();
         }
-        $this->nextPlayer();
     }
 
     public function nextPlayer() {
