@@ -2,6 +2,7 @@
     <label > {{ player }}</label>
 </div>
 <div id="boards" data-id="{{ idGame }}">
+
     {% if board_pieces1 is not null %}
         <table class="board_pieces">
             {% for x in 0.. board_pieces1|length -1 %}

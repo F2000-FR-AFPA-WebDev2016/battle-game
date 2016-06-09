@@ -22,7 +22,8 @@
         {% for game in games %}
             <tr>
                 <td class='colonne1'>{{  game.id }}</td>
-                <td>{{ game.name }}</td>
+                {# <td>{{ game.name }}</td> #}
+                <td>{{ game.createdDate|date('d/m/y H:i:s')}}</td>
                 <td>
                     {{ game.getUsers | length}} / 2
                     <br />
@@ -30,7 +31,7 @@
                         {{ user.getLogin }}<br />
                     {% endfor %}
                 </td>
-                <td>{{ game.createdDate|date('d/m/y H:i:s')}}</td>
+
                 <td>
                     {% if (game_user is not null) and game_user.id == game.id %}
                         En attente de joueurs...

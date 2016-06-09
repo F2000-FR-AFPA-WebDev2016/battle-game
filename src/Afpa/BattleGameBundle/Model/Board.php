@@ -100,6 +100,7 @@ class Board {
                     }
                 }
             }
+
             $this->nextPlayer();
         }
     }
