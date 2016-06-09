@@ -6,7 +6,7 @@ $(document).ready(function () {
      * @returns int
      */
     function getGameId() {
-        return $('#game').data('id');
+        return $('#boards').data('id');
     }
 
 
@@ -16,10 +16,17 @@ $(document).ready(function () {
     $('#game').on('click', '.board_shoot td', function () {
         selected_case = $(this);
 
+        // gestion du mode offline/online
+        url = START_URL + '/game/action';
+        idGame = getGameId();
+        if (idGame) {
+            url += '/' + idGame;
+        }
+
         $.ajax({
             async: true,
             type: 'POST',
-            url: START_URL + '/game/action',
+            url: url,
             data: {
                 x: $(this).data('x'),
                 y: $(this).data('y'),
@@ -39,6 +46,7 @@ $(document).ready(function () {
 
     // rafraichir la vue partielle
     function refresh() {
+        // gestion du mode offline/online
         url = START_URL + '/game/refresh';
         idGame = getGameId();
         if (idGame) {
@@ -60,8 +68,7 @@ $(document).ready(function () {
     }
 
     // auto-refresh si jeu présent sur la page
-    if ($('#game').length > 0) {
-        console.log(getGameId());
+    if ($('#boards').length > 0) {
         setInterval(refresh, 2000);
     }
 });

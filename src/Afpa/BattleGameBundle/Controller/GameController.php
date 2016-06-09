@@ -38,7 +38,7 @@ class GameController extends Controller {
     }
 
     /**
-     * @Route("/game/refresh", name="game_refresh")
+     * @Route("/game/refresh")
      * @Template()
      */
     public function gameViewAction(Request $request) {
@@ -60,15 +60,15 @@ class GameController extends Controller {
     }
 
     /**
-     * @Route("/game/action", name="game_action")
+     * @Route("/game/action")
      * @Template()
      */
-    public function doAction(Request $request) {
+    public function doOfflineAction(Request $request) {
         $x = $request->get('x');
         $y = $request->get('y');
 
-        $session = $request->getSession();
-        $oBoard = $session->get('oBoard', null);
+        $oSession = $request->getSession();
+        $oBoard = $oSession->get('oBoard', null);
         $oBoard->doClick($x, $y);
 
         return new Response($x . ',' . $y);
@@ -193,7 +193,7 @@ class GameController extends Controller {
     }
 
     /**
-     * @Route("/game/refresh/{idGame}", name="game_refresh")"
+     * @Route("/game/refresh/{idGame}")"
      * @Template()
      */
     public function refreshGameAction(Request $request, $idGame) {
@@ -203,6 +203,7 @@ class GameController extends Controller {
             'status' => Game::STATUS_STARTED
         ));
 
+        // condition de sortie
         if (!$oGame instanceof Game) {
             return $this->redirect($this->generateURL('game_list'));
         }
@@ -217,6 +218,43 @@ class GameController extends Controller {
             'board_shoot2' => $oBoard->getBoardShoot2(),
             'player' => $oBoard->getPlayer(),
         );
+    }
+
+    /**
+     * @Route("/game/action/{idGame}")
+     * @Template()
+     */
+    public function doOnlineAction(Request $request, $idGame) {
+        $oSession = $request->getSession();
+
+        $repo = $this->getDoctrine()->getRepository('AfpaBattleGameBundle:Game');
+        $oGame = $repo->findOneBy(array(
+            'id' => $idGame,
+            'status' => Game::STATUS_STARTED
+        ));
+
+        // condition de sortie : le jeu n'existe pas ou n'est pas démarré
+        if (!$oGame instanceof Game) {
+            return new Response();
+        }
+
+        // condition de sortie : l'utilisateur n'est pas connecté
+        if (!$oSession->get('oUser') instanceof User) {
+            return new Response();
+        }
+
+        $x = $request->get('x');
+        $y = $request->get('y');
+
+
+        $oBoard = unserialize($oGame->getData());
+        $oBoard->doClick($x, $y);
+        $oGame->setData(serialize($oBoard));
+
+        // Sauvegarde du nouvel état
+        $this->getDoctrine()->getManager()->flush();
+
+        return new Response($x . ',' . $y);
     }
 
 }
