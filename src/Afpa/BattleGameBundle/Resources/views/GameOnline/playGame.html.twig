@@ -1,0 +1,10 @@
+{% extends "AfpaBattleGameBundle::layout.html.twig" %}
+
+{% block body %}
+
+    <h1>Jeu en ligne</h1>
+    <div id="game">
+        {{ render(controller('AfpaBattleGameBundle:GameOnline:gameRefresh', { 'idGame': idGame })) }}
+    </div>
+
+{% endblock %}

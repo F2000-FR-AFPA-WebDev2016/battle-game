@@ -11,68 +11,7 @@ use Afpa\BattleGameBundle\Model\Board;
 use Afpa\BattleGameBundle\Entity\Game;
 use Afpa\BattleGameBundle\Entity\User;
 
-class GameController extends Controller {
-
-    /**
-     * @Route("/", name="game_accueil")"
-     * @Template()
-     */
-    public function accueilAction() {
-        return array();
-    }
-
-    /**
-     * @Route("/game", name="game_home")
-     * @Template()
-     */
-    public function indexAction(Request $request) {
-
-        $session = $request->getSession();
-
-        $oBoard = $session->get('oBoard', null);
-        if (!$oBoard instanceof Board) {
-            $oBoard = new Board();
-            $session->set('oBoard', $oBoard);
-        }
-        return array();
-    }
-
-    /**
-     * @Route("/game/refresh")
-     * @Template()
-     */
-    public function gameViewAction(Request $request) {
-        $session = $request->getSession();
-
-        $oBoard = $session->get('oBoard', null);
-        if (!$oBoard instanceof Board) {
-            $oBoard = new Board();
-            $session->set('oBoard', $oBoard);
-        }
-
-        return array(
-            'board_pieces1' => $oBoard->getBoardPieces1(),
-            'board_shoot1' => $oBoard->getBoardShoot1(),
-            'board_pieces2' => $oBoard->getBoardPieces2(),
-            'board_shoot2' => $oBoard->getBoardShoot2(),
-            'player' => $oBoard->getPlayer(),
-        );
-    }
-
-    /**
-     * @Route("/game/action")
-     * @Template()
-     */
-    public function doOfflineAction(Request $request) {
-        $x = $request->get('x');
-        $y = $request->get('y');
-
-        $oSession = $request->getSession();
-        $oBoard = $oSession->get('oBoard', null);
-        $oBoard->doClick($x, $y);
-
-        return new Response($x . ',' . $y);
-    }
+class GameOnlineController extends Controller {
 
     /**
      * @Route("/game/list", name="game_list")"
@@ -196,7 +135,7 @@ class GameController extends Controller {
      * @Route("/game/refresh/{idGame}")"
      * @Template()
      */
-    public function refreshGameAction(Request $request, $idGame) {
+    public function gameRefreshAction(Request $request, $idGame) {
         $repo = $this->getDoctrine()->getRepository('AfpaBattleGameBundle:Game');
         $oGame = $repo->findOneBy(array(
             'id' => $idGame,
@@ -224,7 +163,7 @@ class GameController extends Controller {
      * @Route("/game/action/{idGame}")
      * @Template()
      */
-    public function doOnlineAction(Request $request, $idGame) {
+    public function doAction(Request $request, $idGame) {
         $oSession = $request->getSession();
 
         $repo = $this->getDoctrine()->getRepository('AfpaBattleGameBundle:Game');

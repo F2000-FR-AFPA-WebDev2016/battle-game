@@ -2,8 +2,9 @@
 
 {% block body %}
 
+    <h1>Jeu local</h1>
     <div id="game">
-        {{ render(controller('AfpaBattleGameBundle:Game:gameView')) }}
+        {{ render(controller('AfpaBattleGameBundle:GameOffline:gameRefresh')) }}
     </div>
 
 {% endblock %}
